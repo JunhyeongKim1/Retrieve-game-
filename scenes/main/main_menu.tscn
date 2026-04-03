@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://br3q7r6u8mwlf"]
+
+[ext_resource type="PackedScene" uid="uid://icu71a2l1o7r" path="res://scenes/player/player.tscn" id="1_sd5it"]
+
+[node name="MainMenu" type="Node2D" unique_id=1045219543]
+
+[node name="Title" type="Label" parent="." unique_id=1530230933]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 535.0
+offset_bottom = 223.0
+theme_override_font_sizes/font_size = 90
+text = "Retrieve"
+
+[node name="Button" type="Button" parent="." unique_id=308705263]
+offset_left = 896.0
+offset_top = 256.0
+offset_right = 1152.0
+offset_bottom = 320.0
+text = "게임 시작
+"
+
+[node name="player" parent="." unique_id=1722833208 instance=ExtResource("1_sd5it")]

@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://icu71a2l1o7r"]
+
+[ext_resource type="Texture2D" uid="uid://c4xgsskg2lxo" path="res://asset/art/playerGrey_walk1.png" id="1_dovo2"]
+[ext_resource type="Script" uid="uid://cwr5mut84nvq8" path="res://script/player/player.gd" id="1_gmlin"]
+[ext_resource type="Texture2D" uid="uid://bx2m0m2hga54r" path="res://asset/art/playerGrey_walk2.png" id="2_gmlin"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lvxji"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_dovo2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gmlin")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gmlin"]
+size = Vector2(112, 129)
+
+[node name="player" type="CharacterBody2D" unique_id=1722833208]
+script = ExtResource("1_gmlin")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=990605289]
+position = Vector2(-2.5, -0.5)
+sprite_frames = SubResource("SpriteFrames_lvxji")
+frame_progress = 0.9459967
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1963167268]
+position = Vector2(-2.5, -1)
+shape = SubResource("RectangleShape2D_gmlin")
+
+[node name="CoyoteTimer" type="Timer" parent="." unique_id=906209529]
+
+[node name="InputTimer" type="Timer" parent="." unique_id=64623369]
