@@ -1,25 +1,69 @@
 [gd_scene format=3 uid="uid://icu71a2l1o7r"]
 
-[ext_resource type="Texture2D" uid="uid://c4xgsskg2lxo" path="res://asset/art/playerGrey_walk1.png" id="1_dovo2"]
 [ext_resource type="Script" uid="uid://cwr5mut84nvq8" path="res://script/player/player.gd" id="1_gmlin"]
-[ext_resource type="Texture2D" uid="uid://bx2m0m2hga54r" path="res://asset/art/playerGrey_walk2.png" id="2_gmlin"]
+[ext_resource type="Texture2D" uid="uid://bxcobg8sn7v8h" path="res://asset/player/Player_idle.png" id="2_dovo2"]
+[ext_resource type="Texture2D" uid="uid://dpf83ugtsvvw6" path="res://asset/art/enemyFlyingAlt_1.png" id="2_p47bc"]
+[ext_resource type="Texture2D" uid="uid://bs6g3ocyedbep" path="res://asset/art/enemyFlyingAlt_2.png" id="4_75vfm"]
+[ext_resource type="Texture2D" uid="uid://bwy63jileonlb" path="res://asset/art/enemySwimming_1.png" id="5_0owmy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p47bc"]
+atlas = ExtResource("2_dovo2")
+region = Rect2(0, 0, 128, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75vfm"]
+atlas = ExtResource("2_dovo2")
+region = Rect2(128, 0, 128, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0owmy"]
+atlas = ExtResource("2_dovo2")
+region = Rect2(256, 0, 128, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lvxji"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_dovo2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_gmlin")
+"texture": ExtResource("2_p47bc")
 }],
 "loop": true,
-"name": &"default",
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p47bc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75vfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0owmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75vfm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_75vfm")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_0owmy")
+}],
+"loop": true,
+"name": &"run",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmlin"]
-size = Vector2(112, 129)
+size = Vector2(112, 203)
 
 [node name="player" type="CharacterBody2D" unique_id=1722833208]
 script = ExtResource("1_gmlin")
@@ -27,10 +71,10 @@ script = ExtResource("1_gmlin")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=990605289]
 position = Vector2(-2.5, -0.5)
 sprite_frames = SubResource("SpriteFrames_lvxji")
-frame_progress = 0.9459967
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1963167268]
-position = Vector2(-2.5, -1)
+position = Vector2(-2.5, -1.5)
 shape = SubResource("RectangleShape2D_gmlin")
 
 [node name="CoyoteTimer" type="Timer" parent="." unique_id=906209529]
