@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
+const JUMP_RELEASE_MULTIPLIER = 2.0
 
 @export var coyote_time = 0.1
 @export var jump_buffer_time = 0.1
@@ -18,8 +19,11 @@ var current_state: State = State.IDLE
 func _physics_process(delta: float) -> void:
 	# 중력
 	if not is_on_floor():
-		velocity += get_gravity() * delta
-
+		if velocity.y < 0 and not Input.is_action_pressed("ui_accept"):
+			velocity += get_gravity() * JUMP_RELEASE_MULTIPLIER * delta
+		else:
+			velocity += get_gravity() * delta
+			
 	# Coyote Time 갱신
 	if is_on_floor():
 		coyote_timer = coyote_time
