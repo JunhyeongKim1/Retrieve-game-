@@ -56,8 +56,8 @@ func _physics_process(delta: float) -> void:
 	_update_state()
 
 func _handle_drop_through() -> void:
-	# 아래 방향키 + 점프키 동시 입력 시 One-Way Platform 통과
-	if Input.is_action_just_pressed("ui_accept") and Input.is_action_pressed("ui_down"):
+	# 아래 방향키 + 점프키 
+	if Input.is_action_pressed("ui_down"):
 		# 일시적으로 One-Way collision 무시
 		set_collision_mask_value(2, false)  # 2번 레이어 = One-Way Platform 레이어
 		await get_tree().create_timer(0.2).timeout

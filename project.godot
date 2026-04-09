@@ -30,6 +30,11 @@ ui_accept={
 ]
 }
 
+[layer_names]
+
+2d_render/layer_1="world"
+2d_render/layer_2="one_Way"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
