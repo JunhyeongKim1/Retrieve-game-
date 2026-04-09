@@ -63,19 +63,20 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmlin"]
-size = Vector2(76, 154)
+size = Vector2(62, 132)
 
 [node name="player" type="CharacterBody2D" unique_id=1722833208]
 position = Vector2(45, 78)
+collision_layer = 3
 script = ExtResource("1_gmlin")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=990605289]
 position = Vector2(-2.5, -0.5)
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.65, 0.65)
 sprite_frames = SubResource("SpriteFrames_lvxji")
 animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1963167268]
-position = Vector2(-4, -3)
+position = Vector2(-2, -1)
 shape = SubResource("RectangleShape2D_gmlin")
