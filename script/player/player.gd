@@ -55,6 +55,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	_update_state()
 
+
+
 func _handle_drop_through() -> void:
 	# 아래 방향키 + 점프키 
 	if Input.is_action_pressed("ui_down"):

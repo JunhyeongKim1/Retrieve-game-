@@ -18,17 +18,9 @@ region = Rect2(128, 0, 128, 256)
 atlas = ExtResource("2_dovo2")
 region = Rect2(256, 0, 128, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gx1jg"]
-atlas = ExtResource("5_p47bc")
-region = Rect2(256, 0, 128, 256)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_qek5x"]
 atlas = ExtResource("5_p47bc")
 region = Rect2(128, 0, 128, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5gtgg"]
-atlas = ExtResource("5_p47bc")
-region = Rect2(0, 0, 128, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h17s1"]
 atlas = ExtResource("5_p47bc")
@@ -79,13 +71,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gx1jg")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_qek5x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5gtgg")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_h17s1")
@@ -101,9 +87,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_h17s1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5gtgg")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qek5x")
@@ -127,8 +110,8 @@ metadata/_edit_group_ = true
 position = Vector2(-1, -14)
 scale = Vector2(0.65, 0.65)
 sprite_frames = SubResource("SpriteFrames_lvxji")
-animation = &"jump"
-frame_progress = 0.13645472
+animation = &"run"
+frame_progress = 0.081818365
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1963167268]
 position = Vector2(-2, -1)
