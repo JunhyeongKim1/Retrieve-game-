@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://d1m8sl2khh2yg"]
+
+[ext_resource type="PackedScene" uid="uid://dha2hcmftyyqn" path="res://scenes/Enemy/Enemy.tscn" id="1_qp0uk"]
+[ext_resource type="Script" uid="uid://bmrnuiwup4hpt" path="res://scenes/Enemy/blue_slime.gd" id="2_x340b"]
+[ext_resource type="Texture2D" uid="uid://blchv2pb3fa5e" path="res://asset/Enemy/SlimeBlue/slimeBlue_dead.png" id="3_8pg25"]
+[ext_resource type="Texture2D" uid="uid://dvrapcqu5upxr" path="res://asset/Enemy/SlimeBlue/slimeBlue_hit.png" id="4_yuw13"]
+[ext_resource type="Texture2D" uid="uid://bbjbjmynff2if" path="res://asset/Enemy/SlimeBlue/slimeBlue_move.png" id="5_tijr0"]
+[ext_resource type="Texture2D" uid="uid://cghg3xal4d7nl" path="res://asset/Enemy/SlimeBlue/slimeBlue.png" id="6_11hf0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yye8u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_8pg25")
+}],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_yuw13")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_tijr0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_11hf0")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8pg25"]
+size = Vector2(90, 58)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yuw13"]
+size = Vector2(128, 56)
+
+[node name="BlueSlime" unique_id=739817593 instance=ExtResource("1_qp0uk")]
+collision_layer = 8
+script = ExtResource("2_x340b")
+
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=179676202]
+sprite_frames = SubResource("SpriteFrames_yye8u")
+animation = &"walk"
+frame_progress = 0.47295988
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1684258812]
+position = Vector2(1, 35)
+shape = SubResource("RectangleShape2D_8pg25")
+
+[node name="CollisionShape2D" parent="Right_Raycast/Area2D" parent_id_path=PackedInt32Array(669368330) index="0" unique_id=125838190]
+position = Vector2(-77, 32)
+shape = SubResource("RectangleShape2D_yuw13")
