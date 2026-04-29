@@ -50,12 +50,17 @@ script = ExtResource("2_x340b")
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=179676202]
 sprite_frames = SubResource("SpriteFrames_yye8u")
 animation = &"walk"
-frame_progress = 0.47295988
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=1684258812]
 position = Vector2(1, 35)
 shape = SubResource("RectangleShape2D_8pg25")
 
-[node name="CollisionShape2D" parent="Right_Raycast/Area2D" parent_id_path=PackedInt32Array(669368330) index="0" unique_id=125838190]
+[node name="Left_Raycast" parent="." index="2" unique_id=1739340654]
+position = Vector2(-51, 31)
+
+[node name="Right_Raycast" parent="." index="3" unique_id=402155579]
+position = Vector2(50, 25)
+
+[node name="CollisionShape2D" parent="Area2D" parent_id_path=PackedInt32Array(669368330) index="0" unique_id=125838190]
 position = Vector2(-77, 32)
 shape = SubResource("RectangleShape2D_yuw13")

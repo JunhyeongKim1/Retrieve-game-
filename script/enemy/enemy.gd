@@ -9,8 +9,8 @@ var direction: float = 1.0
 var fear_timer: float = 0.0
 
 @onready var anim = $AnimatedSprite2D
-@onready var ray_left  = $RayCastLeft
-@onready var ray_right = $RayCastRight
+@onready var ray_left  = $Left_Raycast
+@onready var ray_right = $Right_Raycast
 
 enum State { PATROL, FEAR, DEAD }
 var current_state: State = State.PATROL
@@ -35,21 +35,25 @@ func _physics_process(delta: float) -> void:
 # ── 공통 로직 ──────────────────
 
 func _process_patrol() -> void:
-	if direction > 0 and not ray_right.is_colliding():
-		direction = -1.0
-	elif direction < 0 and not ray_left.is_colliding():
-		direction = 1.0
+	# 벽 감지 먼저 (우선순위 높음)
 	if is_on_wall():
 		direction *= -1.0
+	# 낭떠러지 감지 (벽 감지와 elif로 분리)
+	elif direction > 0 and !ray_right.is_colliding():
+		direction = -1.0
+	elif direction < 0 and !ray_left.is_colliding():
+		direction = 1.0
+
 	velocity.x = direction * speed
-	anim.flip_h = direction < 0
+	anim.flip_h = direction > 0
+	
 
 func _process_fear(delta: float) -> void:
 	fear_timer -= delta
 	if fear_timer <= 0:
 		current_state = State.PATROL
 	velocity.x = -direction * speed * 1.5
-	anim.flip_h = velocity.x < 0
+	anim.flip_h = velocity.x > 0
 
 func take_damage(amount: int) -> void:
 	if current_state == State.DEAD:

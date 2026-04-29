@@ -6,7 +6,7 @@
 script = ExtResource("1_8fccx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=179676202]
-animation = &"move"
+animation = &""
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1684258812]
 position = Vector2(-1.5, 34.5)
@@ -15,7 +15,7 @@ position = Vector2(-1.5, 34.5)
 
 [node name="Right_Raycast" type="RayCast2D" parent="." unique_id=402155579]
 
-[node name="Area2D" type="Area2D" parent="Right_Raycast" unique_id=669368330]
+[node name="Area2D" type="Area2D" parent="." unique_id=669368330]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Right_Raycast/Area2D" unique_id=125838190]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=125838190]
 position = Vector2(-62.5, 35)
