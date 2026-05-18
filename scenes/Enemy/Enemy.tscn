@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://hc8pgdpjij4w" path="res://script/enemy/enemy.gd" id="1_8fccx"]
 
 [node name="Enemy" type="CharacterBody2D" unique_id=739817593]
+collision_layer = 8
+collision_mask = 7
 script = ExtResource("1_8fccx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=179676202]
@@ -15,7 +17,17 @@ position = Vector2(-1.5, 34.5)
 
 [node name="Right_Raycast" type="RayCast2D" parent="." unique_id=402155579]
 
-[node name="Area2D" type="Area2D" parent="." unique_id=669368330]
+[node name="ViewFiled" type="Area2D" parent="." unique_id=669368330]
+collision_layer = 8
+collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=125838190]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewFiled" unique_id=125838190]
 position = Vector2(-62.5, 35)
+
+[node name="HitboxArea2D" type="Area2D" parent="." unique_id=855543373]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxArea2D" unique_id=1039082644]
+position = Vector2(-1.5, 34.5)
+
+[connection signal="body_entered" from="ViewFiled" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="ViewFiled" to="." method="_on_area_2d_body_exited"]
