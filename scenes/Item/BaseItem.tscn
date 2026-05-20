@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c15febnwmukh6"]
+
+[ext_resource type="Script" uid="uid://dvs7avptfparo" path="res://script/Item/BaseItem.gd" id="1_r1ks6"]
+
+[node name="BaseItem" type="Area2D" unique_id=160682066]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("1_r1ks6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2113228108]
+position = Vector2(104, 80)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=655090157]
+position = Vector2(104, 80)

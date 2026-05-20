@@ -43,8 +43,18 @@ func _ready() -> void:
 	print(player_width, player_height)
 	add_to_group("player")
 	
+# 청동 검 능력
+var has_bronze_sword: bool = false
+var sword_cooldown: float = 0.0
+const SWORD_COOLDOWN_TIME: float = 30.0
 
 func _physics_process(delta: float) -> void:
+	if sword_cooldown > 0:
+		sword_cooldown -= delta
+
+	# 청동 검 사용
+	if Input.is_action_just_pressed("use_skill1") and has_bronze_sword:
+		use_bronze_sword()
 	# 중력
 	if not is_on_floor():
 		if velocity.y < 0 and not Input.is_action_pressed("ui_accept"):
@@ -102,6 +112,8 @@ func set_bounds(left: float, right: float, top: float, bottom: float) -> void:
 	bound_right  = right
 	bound_top    = top
 	bound_bottom = bottom
+	var cam = $Camera2D
+	cam.limit_right = bound_right
 
 func _check_edge() -> void:
 	if global_position.x - player_width / 2 < bound_left:
@@ -170,3 +182,19 @@ func _start_invincible_flash():
 	while is_invincible:
 		anim.modulate.a = 0.3 if anim.modulate.a > 0.5 else 1.0
 		await get_tree().create_timer(0.1).timeout
+		
+func unlock_bronze_sword() -> void:
+	has_bronze_sword = true
+	print("청동 검 획득!")
+
+func use_bronze_sword() -> void:
+	if not has_bronze_sword:
+		return
+	if sword_cooldown > 0:
+		return
+	sword_cooldown = SWORD_COOLDOWN_TIME
+	# 범위 내 모든 적에게 공포 적용
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		var dist = global_position.distance_to(enemy.global_position)
+		if dist < 200.0:
+			enemy.apply_fear(5.0)

@@ -33,6 +33,7 @@ func _ready() -> void:
 	# 시그널 코드로 연결 (에디터에서 이미 연결했으면 이 줄 제거)
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
 	hitbox.body_exited.connect(_on_hitbox_body_exited)  # 누락된 부분
+	add_to_group("enemy")
 
 
 func _on_damage_cooldown():
