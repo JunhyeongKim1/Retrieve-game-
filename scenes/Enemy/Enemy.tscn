@@ -6,6 +6,10 @@
 collision_layer = 8
 collision_mask = 7
 script = ExtResource("1_8fccx")
+speed = null
+chase_speed = null
+max_hp = null
+damage = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=179676202]
 animation = &""

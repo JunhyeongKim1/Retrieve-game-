@@ -34,7 +34,7 @@ var player_height = 0
 var is_invincible = false
 var knockback_velocity = Vector2.ZERO
 const KNOCKBACK_FORCE = 400.0
-const INVINCIBLE_TIME = 1.5
+const INVINCIBLE_TIME = 1.7
 
 func _ready() -> void:
 	var shape = collision.shape as RectangleShape2D
@@ -42,6 +42,7 @@ func _ready() -> void:
 	player_height = shape.size.y
 	print(player_width, player_height)
 	add_to_group("player")
+	
 
 func _physics_process(delta: float) -> void:
 	# 중력
@@ -74,8 +75,9 @@ func _physics_process(delta: float) -> void:
 
 	# 이동
 	if knockback_velocity != Vector2.ZERO:
-		current_state = State.KNOCK
-		_play_animation() 
+		if current_state != State.KNOCK:  # 상태 전환 시 1번만
+			current_state = State.KNOCK
+			_play_animation()
 		velocity = knockback_velocity
 		knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, 1000 * delta)
 		if knockback_velocity.length() < 10:
@@ -149,7 +151,7 @@ func _play_animation() -> void:
 		State.RUN:   anim.play("run")
 		State.JUMP:  anim.play("jump")
 		State.FALL:  anim.play("fall")
-		State.KNOCK: anim.play("knock")  # knock 애니메이션 없으면 제거
+		State.KNOCK: anim.play("knock")  
 
 func take_damage(damage, enemy_position: Vector2):
 	if is_invincible:

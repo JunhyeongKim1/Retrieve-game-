@@ -19,7 +19,9 @@ var player_ref: Node = null
 @onready var ray_right = $Right_Raycast
 @onready var detection_shape = $ViewFiled/CollisionShape2D
 @onready var detection_area  = $ViewFiled
+
 @onready var hitbox = $HitboxArea2D
+var player_in_hitbox: Node = null
 
 enum State { PATROL, CHASE, FEAR, DEAD }
 var current_state: State = State.PATROL
@@ -29,21 +31,28 @@ func _ready() -> void:
 	ray_left.target_position  = Vector2(-30, 40)
 	ray_right.target_position = Vector2(30, 40)
 	# 시그널 코드로 연결 (에디터에서 이미 연결했으면 이 줄 제거)
-	#detection_area.body_entered.connect(_on_area_2d_body_entered)
-	#detection_area.body_exited.connect(_on_area_2d_body_exited)
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
+	hitbox.body_exited.connect(_on_hitbox_body_exited)  # 누락된 부분
 
 
 func _on_damage_cooldown():
 	can_damage = true;
 	
-func _on_hitbox_body_entered(body) -> void:
-	print("dsds" + body.name)
-	if body.is_in_group("player") and can_damage:
-		body.take_damage(damage, position)
-		can_damage = false
-		await get_tree().create_timer(1.0).timeout
-		can_damage = true
+func _on_hitbox_body_entered(body: Node) -> void:
+	if body.is_in_group("player"):
+		player_in_hitbox = body
+
+func _on_hitbox_body_exited(body: Node) -> void:
+	if body.is_in_group("player"):
+		player_in_hitbox = null
+
+#func _on_hitbox_body_entered(body) -> void:
+	#print("dsds" + body.name)
+	#if body.is_in_group("player") and can_damage:
+		#body.take_damage(damage, position)
+		#can_damage = false
+		#await get_tree().create_timer(1.0).timeout
+		#can_damage = true
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -55,17 +64,15 @@ func _physics_process(delta: float) -> void:
 		State.FEAR:   _process_fear(delta)
 		State.DEAD:   pass
 
+	if player_in_hitbox != null and can_damage:
+		player_in_hitbox.take_damage(damage, global_position)
+		can_damage = false
+		await get_tree().create_timer(1.0).timeout
+		can_damage = true
+		
 	move_and_slide()
 	_update_animation()
-	#for i in get_slide_collision_count():
-		#var collider = get_slide_collision(i).get_collider()
-		#print(collider.name)
-		#if collider.is_in_group("player") and can_damage:
-			#collider.take_damage(damage, position)
-			#can_damage = false
-			#await get_tree().create_timer(1.0).timeout
-			#can_damage = true
-
+		
 func _process_patrol() -> void:
 	# 벽/낭떠러지 감지 → 방향 전환
 	if is_on_wall():
