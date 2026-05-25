@@ -8,6 +8,10 @@ class_name BaseEnemy
 @export var damage = 5
 
 var can_damage = true
+var fall_death_y: float = 1200.0
+
+func set_fall_death_y(y: float) -> void:
+	fall_death_y = y
 
 var hp: int
 var direction: float = 1.0
@@ -56,6 +60,11 @@ func _on_hitbox_body_exited(body: Node) -> void:
 		#can_damage = true
 
 func _physics_process(delta: float) -> void:
+	if current_state != State.DEAD and position.y > fall_death_y:
+		current_state = State.DEAD
+		queue_free()
+		return
+
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
@@ -65,14 +74,13 @@ func _physics_process(delta: float) -> void:
 		State.FEAR:   _process_fear(delta)
 		State.DEAD:   pass
 
+	move_and_slide()
+	_update_animation()
+
 	if player_in_hitbox != null and can_damage:
 		player_in_hitbox.take_damage(damage, global_position)
 		can_damage = false
-		await get_tree().create_timer(1.0).timeout
-		can_damage = true
-		
-	move_and_slide()
-	_update_animation()
+		get_tree().create_timer(1.0).timeout.connect(_on_damage_cooldown, CONNECT_ONE_SHOT)
 		
 func _process_patrol() -> void:
 	# 벽/낭떠러지 감지 → 방향 전환
@@ -113,9 +121,29 @@ func _process_fear(delta: float) -> void:
 	fear_timer -= delta
 	if fear_timer <= 0:
 		current_state = State.PATROL
-	velocity.x = -direction * speed * 1.5
+		return
+	var flee_dir: float
+	var player = get_tree().get_first_node_in_group("player")
+	if player != null:
+		flee_dir = sign(global_position.x - player.global_position.x)
+		if flee_dir == 0.0:
+			flee_dir = -direction
+	else:
+		flee_dir = -direction
+	velocity.x = flee_dir * speed * 1.5
 	anim.flip_h = velocity.x > 0
+	
+		# 벽/낭떠러지 감지 → 방향 전환
+	if is_on_wall():
+		direction *= -1.0
+	elif direction > 0 and not ray_right.is_colliding():
+		direction = -1.0
+	elif direction < 0 and not ray_left.is_colliding():
+		direction = 1.0
 
+	# 감지 영역 방향 전환
+	detection_shape.position.x = abs(detection_shape.position.x) * direction
+	
 func take_damage(amount: int) -> void:
 	if current_state == State.DEAD:
 		return
@@ -129,11 +157,14 @@ func apply_fear(duration: float) -> void:
 	fear_timer = duration
 	current_state = State.FEAR
 
+
 func _die() -> void:
 	current_state = State.DEAD
 	anim.play("die")
 	await anim.animation_finished
+	print("die")
 	queue_free()
+	
 
 func _on_area_2d_body_entered(body: Node) -> void:
 	print("감지된 body: ", body.name)

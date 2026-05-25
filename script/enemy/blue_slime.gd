@@ -23,6 +23,6 @@ func _update_animation() -> void:
 		State.CHASE:  
 			anim.play("walk")
 		State.FEAR:
-			anim.play("walk")  # 공포 시 빠르게 도망
+			anim.play("fear")
 		State.DEAD:
 			pass  # _die()에서 처리

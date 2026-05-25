@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://qllldatxtske"]
+
+[ext_resource type="PackedScene" uid="uid://c15febnwmukh6" path="res://scenes/Item/BaseItem.tscn" id="1_cmegn"]
+[ext_resource type="Script" uid="uid://bnc3oov31xp05" path="res://script/Item/gilt_bronze_crown.gd" id="2_xsenh"]
+[ext_resource type="Texture2D" uid="uid://qm384diwh3qm" path="res://asset/Item/Glit-bronzeCrown.png" id="3_sy18p"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sy18p"]
+load_path = "res://.godot/imported/Glit-bronzeCrown_museum.png-543cb794650eb9531c3c748c1f375d49.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lv72p"]
+size = Vector2(40, 48)
+
+[node name="Gilt-bronzeCrown" unique_id=160682066 instance=ExtResource("1_cmegn")]
+script = ExtResource("2_xsenh")
+item_icon = SubResource("CompressedTexture2D_sy18p")
+
+[node name="Sprite2D" parent="." index="0" unique_id=2113228108]
+position = Vector2(16.000008, 16.000008)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_sy18p")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=655090157]
+position = Vector2(12, 16)
+shape = SubResource("RectangleShape2D_lv72p")
+metadata/_edit_group_ = true

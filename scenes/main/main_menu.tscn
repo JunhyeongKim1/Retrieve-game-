@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://br3q7r6u8mwlf"]
 
-[ext_resource type="PackedScene" uid="uid://icu71a2l1o7r" path="res://scenes/player/player.tscn" id="1_sd5it"]
+[ext_resource type="Script" uid="uid://ce68lnjwdhtbo" path="res://scenes/main/main_menu.gd" id="1_sd5it"]
 
 [node name="MainMenu" type="Node2D" unique_id=1045219543]
+script = ExtResource("1_sd5it")
+next_scene = "res://scenes/story/intro.tscn"
 
 [node name="Title" type="Label" parent="." unique_id=1530230933]
 offset_left = 64.0
@@ -20,4 +22,4 @@ offset_bottom = 320.0
 text = "게임 시작
 "
 
-[node name="player" parent="." unique_id=1722833208 instance=ExtResource("1_sd5it")]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

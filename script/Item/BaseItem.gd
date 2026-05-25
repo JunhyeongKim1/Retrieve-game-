@@ -46,9 +46,9 @@ func _on_collected(player: Node) -> void:
 	_remove_item()
 
 func _show_popup() -> void:
-	# 팝업 UI 인스턴스 생성 (나중에 구현)
-	print("획득: ", item_name)
-	print("설명: ", item_description)
+	var popup = preload("res://scenes/ui/ItemPopup.tscn").instantiate()
+	get_tree().root.add_child(popup)
+	popup.show_item(item_name, item_description, item_icon)
 
 func _remove_item() -> void:
 	# 획득 연출 후 제거

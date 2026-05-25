@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctlcgup4u4ta1"
-path="res://.godot/imported/Gemini_Generated_Image_6m72nt6m72nt6m72.png-4300ea0660783c8e451eaf6391a3f955.ctex"
+uid="uid://qm384diwh3qm"
+path="res://.godot/imported/Glit-bronzeCrown.png-dbf4888bf31804611ec73b02f5e9f873.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/Enemy/Gemini_Generated_Image_6m72nt6m72nt6m72.png"
-dest_files=["res://.godot/imported/Gemini_Generated_Image_6m72nt6m72nt6m72.png-4300ea0660783c8e451eaf6391a3f955.ctex"]
+source_file="res://asset/Item/Glit-bronzeCrown.png"
+dest_files=["res://.godot/imported/Glit-bronzeCrown.png-dbf4888bf31804611ec73b02f5e9f873.ctex"]
 
 [params]
 

@@ -30,6 +30,9 @@ var current_state: State = State.IDLE
 var player_width = 0
 var player_height = 0
 
+# 리스폰 위치
+var spawn_position: Vector2
+
 # 넉백 + 무적
 var is_invincible = false
 var knockback_velocity = Vector2.ZERO
@@ -40,17 +43,26 @@ func _ready() -> void:
 	var shape = collision.shape as RectangleShape2D
 	player_width = shape.size.x
 	player_height = shape.size.y
-	print(player_width, player_height)
 	add_to_group("player")
+	PlayerData.load_to_player(self)
+	spawn_position = global_position
 	
 # 청동 검 능력
 var has_bronze_sword: bool = false
 var sword_cooldown: float = 0.0
-const SWORD_COOLDOWN_TIME: float = 30.0
+const SWORD_COOLDOWN_TIME: float = 5.0
+var fear_time = 2.0
 
+# 금동관 능력 (더블점프)
+var has_crown: bool = false
+var double_jump_available: bool = false
 func _physics_process(delta: float) -> void:
 	if sword_cooldown > 0:
 		sword_cooldown -= delta
+		print(sword_cooldown)
+	elif sword_cooldown < 0:
+		sword_cooldown = 0
+		print("sword 쿨 돌았음")
 
 	# 청동 검 사용
 	if Input.is_action_just_pressed("use_skill1") and has_bronze_sword:
@@ -65,6 +77,7 @@ func _physics_process(delta: float) -> void:
 	# Coyote Time 갱신
 	if is_on_floor():
 		coyote_timer = coyote_time
+		double_jump_available = true  # 착지 시 더블점프 리셋
 	else:
 		coyote_timer -= delta
 
@@ -79,6 +92,11 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		jump_buffer_timer = 0
 		coyote_timer = 0
+	# 더블점프 (FALL 상태 + 금동관 보유 + 더블점프 가용)
+	elif jump_buffer_timer > 0 and has_crown and double_jump_available and current_state == State.FALL:
+		velocity.y = JUMP_VELOCITY
+		jump_buffer_timer = 0
+		double_jump_available = false
 
 	# ↓ + 점프 → One-Way Platform 아래로 통과
 	_handle_drop_through()
@@ -127,7 +145,7 @@ func _check_edge() -> void:
 		_respawn()
 
 func _respawn() -> void:
-	global_position = Vector2(200, 300)
+	global_position = spawn_position
 	velocity = Vector2.ZERO
 
 func _handle_drop_through() -> void:
@@ -187,14 +205,24 @@ func unlock_bronze_sword() -> void:
 	has_bronze_sword = true
 	print("청동 검 획득!")
 
+func unlock_crown() -> void:
+	has_crown = true
+	double_jump_available = true
+	print("금동관 획득! 더블점프 가능")
+
 func use_bronze_sword() -> void:
 	if not has_bronze_sword:
+		print("bronze_swrod가 없습니다.")
 		return
 	if sword_cooldown > 0:
+		print("bronze_sword가 쿨타임 입니다")
 		return
 	sword_cooldown = SWORD_COOLDOWN_TIME
 	# 범위 내 모든 적에게 공포 적용
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		var dist = global_position.distance_to(enemy.global_position)
 		if dist < 200.0:
-			enemy.apply_fear(5.0)
+			print("범위 내 적을 공포로 만듭니다.")
+			enemy.apply_fear(fear_time)
+		else:
+			print("범위 내 적이 없습니다.")

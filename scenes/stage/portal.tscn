@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://b0gi8dbhghyqn"]
+
+[ext_resource type="Script" uid="uid://basmvu6k74dhk" path="res://script/stage/portal.gd" id="1_f0dcq"]
+[ext_resource type="Texture2D" uid="uid://bcrcx2lerdlvm" path="res://asset/Background/wood_signs.png" id="2_fr7s2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fr7s2"]
+size = Vector2(97, 88)
+
+[node name="Portal" type="Area2D" unique_id=999339759]
+position = Vector2(16, 16)
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("1_f0dcq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1235607125]
+position = Vector2(96, 64)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_fr7s2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=962977939]
+position = Vector2(96, 64)
+shape = SubResource("RectangleShape2D_fr7s2")
+
+[node name="Label" type="Label" parent="." unique_id=1202292394]
+offset_left = 64.0
+offset_top = 48.0
+offset_right = 119.0
+offset_bottom = 71.0
+theme_override_font_sizes/font_size = 13
+text = "stage 2"
+metadata/_edit_use_anchors_ = true

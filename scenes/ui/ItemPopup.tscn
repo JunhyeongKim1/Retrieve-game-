@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://item_popup_001"]
+
+[ext_resource type="Script" uid="uid://item_popup_script" path="res://script/ui/item_popup.gd" id="1_popup"]
+
+[node name="ItemPopup" type="CanvasLayer" unique_id=200000001]
+layer = 10
+script = ExtResource("1_popup")
+
+[node name="Overlay" type="Button" parent="." unique_id=200000002]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+modulate = Color(0, 0, 0, 0.55)
+
+[node name="ColorRect" type="ColorRect" parent="Overlay" unique_id=200000003]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=200000004]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -180.0
+offset_right = 260.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=200000005]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TitleBar" type="ColorRect" parent="Panel/VBox" unique_id=200000006]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+color = Color(0.13, 0.09, 0.22, 1)
+
+[node name="TitleLabel" type="Label" parent="Panel/VBox/TitleBar" unique_id=200000007]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.4, 1)
+theme_override_font_sizes/font_size = 20
+text = "✦  유물 획득  ✦"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContentMargin" type="MarginContainer" parent="Panel/VBox" unique_id=200000008]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_bottom = 14
+
+[node name="HBox" type="HBoxContainer" parent="Panel/VBox/ContentMargin" unique_id=200000009]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="ItemIcon" type="TextureRect" parent="Panel/VBox/ContentMargin/HBox" unique_id=200000010]
+custom_minimum_size = Vector2(130, 130)
+layout_mode = 2
+size_flags_vertical = 4
+expand_mode = 0
+stretch_mode = 5
+
+[node name="TextVBox" type="VBoxContainer" parent="Panel/VBox/ContentMargin/HBox" unique_id=200000011]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="ItemName" type="Label" parent="Panel/VBox/ContentMargin/HBox/TextVBox" unique_id=200000012]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.7, 1)
+theme_override_font_sizes/font_size = 22
+text = "아이템 이름"
+
+[node name="HSep" type="HSeparator" parent="Panel/VBox/ContentMargin/HBox/TextVBox" unique_id=200000013]
+layout_mode = 2
+
+[node name="ItemDescription" type="Label" parent="Panel/VBox/ContentMargin/HBox/TextVBox" unique_id=200000014]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_font_sizes/font_size = 15
+text = "설명"
+autowrap_mode = 2
+
+[node name="ButtonMargin" type="MarginContainer" parent="Panel/VBox" unique_id=200000015]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 16
+
+[node name="ConfirmButton" type="Button" parent="Panel/VBox/ButtonMargin" unique_id=200000016]
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "확인"
