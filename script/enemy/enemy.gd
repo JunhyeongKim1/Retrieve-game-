@@ -18,6 +18,8 @@ var direction: float = 1.0
 var fear_timer: float = 0.0
 var player_ref: Node = null
 
+var _exclamation: Sprite2D = null
+
 @onready var anim = $AnimatedSprite2D
 @onready var ray_left  = $Left_Raycast
 @onready var ray_right = $Right_Raycast
@@ -36,8 +38,62 @@ func _ready() -> void:
 	ray_right.target_position = Vector2(30, 40)
 	# 시그널 코드로 연결 (에디터에서 이미 연결했으면 이 줄 제거)
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
-	hitbox.body_exited.connect(_on_hitbox_body_exited)  # 누락된 부분
+	hitbox.body_exited.connect(_on_hitbox_body_exited)
 	add_to_group("enemy")
+	_build_exclamation()
+
+
+func _build_exclamation() -> void:
+	_exclamation = Sprite2D.new()
+	_exclamation.texture = load("res://asset/particle/!_sprite.png")
+	_exclamation.visible = false
+	add_child(_exclamation)
+
+	# 스프라이트가 완전히 초기화된 뒤 실제 텍스처 크기로 위치 계산
+	await get_tree().process_frame
+	_place_exclamation()
+
+
+func _place_exclamation() -> void:
+	const MARGIN = 14.0
+
+	# CollisionShape2D 상단 = 실제 몸통 윗부분(눈 근처)
+	# 콜리전은 flip_h와 무관하게 위치가 고정되므로 그대로 사용
+	var col = $CollisionShape2D
+	if col and col.shape is RectangleShape2D:
+		var rect = col.shape as RectangleShape2D
+		var top_y = col.position.y - rect.size.y * 0.5
+		_exclamation.position = Vector2(0.0, top_y - MARGIN)
+		_exclamation.flip_h = anim.flip_h
+		return
+
+	# 폴백: 텍스처 높이 기반
+	if anim.sprite_frames and anim.sprite_frames.has_animation(anim.animation):
+		var frame_tex = anim.sprite_frames.get_frame_texture(anim.animation, 0)
+		if frame_tex:
+			var sprite_h = frame_tex.get_height() * abs(anim.scale.y)
+			_exclamation.position = Vector2(anim.position.x,
+											anim.position.y - sprite_h * 0.5 - MARGIN)
+
+
+func _show_exclamation() -> void:
+	if _exclamation == null:
+		return
+	# 표시 직전 현재 flip 상태로 위치 재계산
+	_place_exclamation()
+	_exclamation.modulate.a = 1.0
+	_exclamation.scale      = Vector2(0.0, 0.0)
+	_exclamation.visible    = true
+
+	var tw := create_tween()
+	# 팡 튀어나오는 느낌
+	tw.tween_property(_exclamation, "scale", Vector2(0.4, 0.4), 0.12) \
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	# 잠깐 유지
+	tw.tween_interval(0.45)
+	# 페이드아웃
+	tw.tween_property(_exclamation, "modulate:a", 0.0, 0.18)
+	tw.tween_callback(func() -> void: _exclamation.visible = false)
 
 
 func _on_damage_cooldown():
@@ -168,14 +224,11 @@ func _die() -> void:
 	
 
 func _on_area_2d_body_entered(body: Node) -> void:
-	print("감지된 body: ", body.name)
-	print("body 그룹: ", body.get_groups())
-	print("is_in_group 결과: ", body.is_in_group("player"))
 	if body.is_in_group("player"):
-		print("dfd")
 		player_ref = body
 		if current_state == State.PATROL:
 			current_state = State.CHASE
+			_show_exclamation()   # 플레이어 발견 시 ! 표시
 
 
 func _on_area_2d_body_exited(body: Node) -> void:
