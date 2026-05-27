@@ -12,9 +12,9 @@ func _ready() -> void:
 	tween.tween_property($Panel, "scale", Vector2(1.0, 1.0), 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.tween_property($Panel, "modulate:a", 1.0, 0.15)
 
-func show_item(name: String, description: String, icon: Texture2D) -> void:
+func show_item(_name: String, description: String, icon: Texture2D) -> void:
 	$Panel/VBox/ContentMargin/HBox/ItemIcon.texture = icon
-	$Panel/VBox/ContentMargin/HBox/TextVBox/ItemName.text = name
+	$Panel/VBox/ContentMargin/HBox/TextVBox/ItemName.text = _name
 	$Panel/VBox/ContentMargin/HBox/TextVBox/ItemDescription.text = description
 
 func _on_confirm_pressed() -> void:

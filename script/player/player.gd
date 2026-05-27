@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal game_over
+
 # 경계값 변수
 var bound_left: float = 0.0
 var bound_right: float = 3220.0
@@ -39,6 +41,10 @@ var knockback_velocity = Vector2.ZERO
 const KNOCKBACK_FORCE = 400.0
 const INVINCIBLE_TIME = 1.7
 
+# 체력
+var hp: int = 30
+const MAX_HP: int = 30
+
 func _ready() -> void:
 	var shape = collision.shape as RectangleShape2D
 	player_width = shape.size.x
@@ -46,7 +52,8 @@ func _ready() -> void:
 	add_to_group("player")
 	PlayerData.load_to_player(self)
 	spawn_position = global_position
-	
+
+
 # 청동 검 능력
 var has_bronze_sword: bool = false
 var sword_cooldown: float = 0.0
@@ -142,7 +149,15 @@ func _check_edge() -> void:
 		velocity.x = 0
 
 	if global_position.y > bound_bottom:
-		_respawn()
+		_on_fall()
+
+func _on_fall() -> void:
+	hp -= 10
+	hp = max(hp, 0)
+	if hp <= 0:
+		_trigger_game_over()
+		return
+	_respawn()
 
 func _respawn() -> void:
 	global_position = spawn_position
@@ -187,6 +202,13 @@ func take_damage(damage, enemy_position: Vector2):
 	if is_invincible:
 		return
 
+	hp -= damage
+	hp = max(hp, 0)
+
+	if hp <= 0:
+		_die()
+		return
+
 	var dir = sign(global_position.x - enemy_position.x)
 	knockback_velocity = Vector2(dir * KNOCKBACK_FORCE, -200.0)
 
@@ -195,6 +217,16 @@ func take_damage(damage, enemy_position: Vector2):
 	await get_tree().create_timer(INVINCIBLE_TIME).timeout
 	is_invincible = false
 	anim.modulate.a = 1.0
+
+func _die() -> void:
+	_trigger_game_over()
+
+func _trigger_game_over() -> void:
+	anim.modulate.a = 1.0
+	is_invincible = false
+	knockback_velocity = Vector2.ZERO
+	set_physics_process(false)
+	game_over.emit()
 
 func _start_invincible_flash():
 	while is_invincible:

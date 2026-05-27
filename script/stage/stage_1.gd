@@ -11,7 +11,6 @@ extends Node2D
 @onready var tilemap = $TileMap
 @onready var skill1_label = $HUD/skill1
 @onready var bronsesword = $BronseSword
-@onready var bronsesword2 = $BronseSword2
 @onready var portal = $Portal
 
 func _ready() -> void:
@@ -32,9 +31,7 @@ func _calc_map_bounds() -> void:
 
 func _process(_delta: float) -> void:
 	var sword1_done = not is_instance_valid(bronsesword)
-	var sword2_done = not is_instance_valid(bronsesword2)
 	if sword1_done:
 		skill1_label.visible = true
-	if sword1_done and sword2_done and not portal.visible:
 		portal.visible = true
 		portal.monitoring = true

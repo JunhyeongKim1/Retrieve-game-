@@ -20,8 +20,10 @@ func _show_page(index: int) -> void:
 	$ContinueButton.text = "시작하기" if index >= pages.size() - 1 else "다음 >"
 
 func _on_continue_pressed() -> void:
+	$ContinueButton.disabled = true
 	current_page += 1
 	if current_page >= pages.size():
 		SceneTransition.fade_to_scene("res://scenes/stage/stage1.tscn")
 	else:
 		_show_page(current_page)
+		$ContinueButton.disabled = false

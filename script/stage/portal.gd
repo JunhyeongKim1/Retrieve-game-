@@ -10,6 +10,7 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
+		monitoring = false
 		body.set_physics_process(false)
 		PlayerData.save_from_player(body)
 		SceneTransition.fade_to_scene(next_scene)
