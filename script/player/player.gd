@@ -191,12 +191,13 @@ func _update_state() -> void:
 		_play_animation()
 
 func _play_animation() -> void:
+	anim.offset = Vector2.ZERO   # dead 이후 다른 애니메이션 재생 시 오프셋 초기화
 	match current_state:
 		State.IDLE:  anim.play("idle")
 		State.RUN:   anim.play("run")
 		State.JUMP:  anim.play("jump")
 		State.FALL:  anim.play("fall")
-		State.KNOCK: anim.play("knock")  
+		State.KNOCK: anim.play("knock")
 
 func take_damage(damage, enemy_position: Vector2):
 	if is_invincible:
@@ -226,6 +227,13 @@ func _trigger_game_over() -> void:
 	is_invincible = false
 	knockback_velocity = Vector2.ZERO
 	set_physics_process(false)
+
+	# dead 스프라이트는 가로형이라 세로형 애니메이션과 기준점이 다름
+	# Y 오프셋으로 눕는 스프라이트를 바닥에 맞춤 (값 조정 필요 시 DEAD_OFFSET_Y 수정)
+	const DEAD_OFFSET_Y := 100.0
+	anim.offset = Vector2(0.0, DEAD_OFFSET_Y)
+	anim.play("dead")
+
 	game_over.emit()
 
 func _start_invincible_flash():

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://icu71a2l1o7r"]
 
 [ext_resource type="Script" uid="uid://cwr5mut84nvq8" path="res://script/player/player.gd" id="1_gmlin"]
+[ext_resource type="Texture2D" uid="uid://cymm8m5batx78" path="res://asset/player/dead.png" id="2_75vfm"]
 [ext_resource type="Texture2D" uid="uid://bxcobg8sn7v8h" path="res://asset/player/Player_idle.png" id="2_dovo2"]
 [ext_resource type="Texture2D" uid="uid://bsu0me8leadmh" path="res://asset/player/Player_fall.png" id="2_p47bc"]
 [ext_resource type="Texture2D" uid="uid://delo1r6v08lmt" path="res://asset/player/Player_jump.png" id="4_p47bc"]
@@ -36,6 +37,14 @@ region = Rect2(384, 0, 128, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lvxji"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_75vfm")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_p47bc")
@@ -105,7 +114,7 @@ animations = [{
 size = Vector2(62, 132)
 
 [node name="player" type="CharacterBody2D" unique_id=1722833208 groups=["player"]]
-position = Vector2(167, -365)
+position = Vector2(174, -388)
 collision_layer = 4
 collision_mask = 27
 script = ExtResource("1_gmlin")
@@ -115,7 +124,7 @@ metadata/_edit_group_ = true
 position = Vector2(-1, -14)
 scale = Vector2(0.65, 0.65)
 sprite_frames = SubResource("SpriteFrames_lvxji")
-animation = &"knock"
+animation = &"dead"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1963167268]
 position = Vector2(-2, -1)

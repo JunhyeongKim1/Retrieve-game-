@@ -83,13 +83,14 @@ func _physics_process(delta: float) -> void:
 		get_tree().create_timer(1.0).timeout.connect(_on_damage_cooldown, CONNECT_ONE_SHOT)
 		
 func _process_patrol() -> void:
-	# 벽/낭떠러지 감지 → 방향 전환
-	if is_on_wall():
-		direction *= -1.0
-	elif direction > 0 and not ray_right.is_colliding():
-		direction = -1.0
-	elif direction < 0 and not ray_left.is_colliding():
-		direction = 1.0
+	# 벽/낭떠러지 감지는 바닥 위일 때만 → 공중(점프 중)엔 방향 유지
+	if is_on_floor():
+		if is_on_wall():
+			direction *= -1.0
+		elif direction > 0 and not ray_right.is_colliding():
+			direction = -1.0
+		elif direction < 0 and not ray_left.is_colliding():
+			direction = 1.0
 
 	velocity.x = direction * speed
 	anim.flip_h = direction > 0
@@ -104,14 +105,14 @@ func _process_chase() -> void:
 
 	var chase_dir = sign(player_ref.global_position.x - global_position.x)
 
-	# 낭떠러지 감지만 → 추격 포기
-	# is_on_wall()은 체크 안 함 → 플레이어에게 계속 밀어붙임
-	if chase_dir > 0 and not ray_right.is_colliding():
-		current_state = State.PATROL
-		return
-	elif chase_dir < 0 and not ray_left.is_colliding():
-		current_state = State.PATROL
-		return
+	# 낭떠러지 감지는 바닥 위일 때만 → 공중(점프 중)엔 추격 유지
+	if is_on_floor():
+		if chase_dir > 0 and not ray_right.is_colliding():
+			current_state = State.PATROL
+			return
+		elif chase_dir < 0 and not ray_left.is_colliding():
+			current_state = State.PATROL
+			return
 
 	direction = chase_dir
 	velocity.x = direction * chase_speed

@@ -1,0 +1,88 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://dha2hcmftyyqn" path="res://scenes/Enemy/Enemy.tscn" id="1_qp0uk"]
+[ext_resource type="Script" path="res://script/enemy/red_slime.gd" id="2_redsl"]
+[ext_resource type="Texture2D" uid="uid://blchv2pb3fa5e" path="res://asset/Enemy/SlimeBlue/slimeBlue_dead.png" id="3_8pg25"]
+[ext_resource type="Texture2D" uid="uid://dvrapcqu5upxr" path="res://asset/Enemy/SlimeBlue/slimeBlue_hit.png" id="4_yuw13"]
+[ext_resource type="Texture2D" uid="uid://f5b7bxnp3ja6" path="res://asset/Enemy/SlimeBlue/slimeBlue_fear.png" id="5_11hf0"]
+[ext_resource type="Texture2D" uid="uid://bbjbjmynff2if" path="res://asset/Enemy/SlimeBlue/slimeBlue_move.png" id="5_tijr0"]
+[ext_resource type="Texture2D" uid="uid://cghg3xal4d7nl" path="res://asset/Enemy/SlimeBlue/slimeBlue.png" id="6_11hf0"]
+[ext_resource type="Texture2D" uid="uid://cw6eku46p1ivh" path="res://asset/Enemy/SlimeBlue/slimeBlue_fear_moving.png" id="6_yye8u"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_red"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_8pg25")
+}],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_yuw13")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_11hf0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_yye8u")
+}],
+"loop": true,
+"name": &"fear",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_tijr0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_11hf0")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_col"]
+size = Vector2(90, 58)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_view"]
+size = Vector2(128, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hit"]
+size = Vector2(97, 59)
+
+[node name="RedSlime" instance=ExtResource("1_qp0uk")]
+script = ExtResource("2_redsl")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_red")
+animation = &"walk"
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_col")
+
+[node name="Left_Raycast" parent="." index="2"]
+position = Vector2(-51, 31)
+
+[node name="Right_Raycast" parent="." index="3"]
+position = Vector2(50, 25)
+
+[node name="CollisionShape2D" parent="ViewFiled" parent_id_path=PackedInt32Array(669368330) index="0"]
+position = Vector2(-77, 32)
+shape = SubResource("RectangleShape2D_view")
+
+[node name="HitboxArea2D" parent="." index="5"]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="HitboxArea2D" index="0"]
+position = Vector2(-1.5, 33.5)
+shape = SubResource("RectangleShape2D_hit")

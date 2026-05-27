@@ -253,12 +253,37 @@ func _build_game_over_ui() -> void:
 	title.add_theme_font_size_override("font_size", 72)
 	vbox.add_child(title)
 
+	# ── 캐릭터 이미지 ──────────────────────────────────────
+	# 원하는 이미지 경로로 변경하세요
+	const CHAR_IMG_PATH   := "res://asset/Background/gameover.png"
+	const TARGET_HEIGHT   := 280.0   # 높이 기준값 (px) — 이 값만 바꾸면 크기 조절 가능
+
+	var char_tex          := load(CHAR_IMG_PATH) as Texture2D
+	var tex_size          := char_tex.get_size()
+	var target_w          := tex_size.x * (TARGET_HEIGHT / tex_size.y)  # 비율 유지 너비 자동 계산
+
+	var char_img          := TextureRect.new()
+	char_img.texture              = char_tex
+	char_img.stretch_mode         = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	char_img.expand_mode          = TextureRect.EXPAND_IGNORE_SIZE
+	char_img.custom_minimum_size  = Vector2(target_w, TARGET_HEIGHT)
+	char_img.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	vbox.add_child(char_img)
+	# ───────────────────────────────────────────────────────
+
 	var sub = Label.new()
 	sub.text = "체력이 모두 소진되었습니다"
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	sub.add_theme_color_override("font_color", Color(0.85, 0.85, 0.85))
 	sub.add_theme_font_size_override("font_size", 22)
 	vbox.add_child(sub)
+
+	var btn_restart = Button.new()
+	btn_restart.text = "처음부터 다시"
+	btn_restart.custom_minimum_size = Vector2(220, 54)
+	btn_restart.add_theme_font_size_override("font_size", 26)
+	btn_restart.pressed.connect(_on_restart_pressed)
+	vbox.add_child(btn_restart)
 
 	var btn = Button.new()
 	btn.text = "메인메뉴로"
@@ -273,8 +298,16 @@ func _on_game_over() -> void:
 	get_tree().paused = true
 
 
+func _on_restart_pressed() -> void:
+	if not get_tree().paused:
+		return
+	PlayerData.reset()
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/stage/stage1.tscn")
+
 func _on_main_menu_pressed() -> void:
 	if not get_tree().paused:
 		return
+	PlayerData.reset()
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/main/main_menu.tscn")

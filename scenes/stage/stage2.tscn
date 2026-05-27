@@ -7,7 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://b0gi8dbhghyqn" path="res://scenes/stage/portal.tscn" id="7_4wrrc"]
 [ext_resource type="PackedScene" uid="uid://qllldatxtske" path="res://scenes/Item/Gilt_bronze_crown.tscn" id="7_t32tw"]
 [ext_resource type="Script" uid="uid://dp48y6wfyqihx" path="res://script/stage/stage_2.gd" id="8_stage2"]
-[ext_resource type="Script" path="res://script/ui/hud.gd" id="9_hud"]
+[ext_resource type="PackedScene" path="res://scenes/Enemy/RedSlime.tscn" id="9_d0pxx"]
+[ext_resource type="Script" uid="uid://dmyn37qyq272d" path="res://script/ui/hud.gd" id="9_hud"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_48fdt"]
 
@@ -423,11 +424,14 @@ position = Vector2(984, 48)
 [node name="BlueSlime2" parent="." unique_id=111111111 instance=ExtResource("5_3c2ml")]
 position = Vector2(624, 472)
 
-[node name="BlueSlime3" parent="." unique_id=222222222 instance=ExtResource("5_3c2ml")]
-position = Vector2(3041, 240)
-
-[node name="BlueSlime4" parent="." unique_id=333333333 instance=ExtResource("5_3c2ml")]
-position = Vector2(3920, 240)
-
 [node name="GiltbronzeCrown" parent="." unique_id=160682066 instance=ExtResource("7_t32tw")]
 position = Vector2(128, 544)
+
+[node name="RedSlime" parent="." unique_id=907716978 instance=ExtResource("9_d0pxx")]
+position = Vector2(2205, 191)
+
+[node name="RedSlime2" parent="." unique_id=955959086 instance=ExtResource("9_d0pxx")]
+position = Vector2(3903, 236)
+
+[node name="RedSlime3" parent="." unique_id=210822738 instance=ExtResource("9_d0pxx")]
+position = Vector2(3032, 234)
