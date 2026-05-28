@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal game_over
+signal skill_w_used
 
 # 경계값 변수
 var bound_left: float = 0.0
@@ -46,9 +47,9 @@ var hp: int = 30
 const MAX_HP: int = 30
 
 func _ready() -> void:
-	var shape = collision.shape as RectangleShape2D
-	player_width = shape.size.x
-	player_height = shape.size.y
+	var shape = collision.shape as CapsuleShape2D
+	player_width  = shape.radius * 2.0
+	player_height = shape.height
 	add_to_group("player")
 	PlayerData.load_to_player(self)
 	spawn_position = global_position
@@ -63,17 +64,28 @@ var fear_time = 2.0
 # 금동관 능력 (더블점프)
 var has_crown: bool = false
 var double_jump_available: bool = false
+
+# 노리개 능력 (스킬 W – 무빙 플랫폼 작동)
+var has_fan_pendant: bool = false
+var skill_w_cooldown: float = 0.0
+const SKILL_W_COOLDOWN_TIME: float = 7.0
 func _physics_process(delta: float) -> void:
 	if sword_cooldown > 0:
 		sword_cooldown -= delta
-		print(sword_cooldown)
 	elif sword_cooldown < 0:
 		sword_cooldown = 0
-		print("sword 쿨 돌았음")
+
+	if skill_w_cooldown > 0:
+		skill_w_cooldown -= delta
+	elif skill_w_cooldown < 0:
+		skill_w_cooldown = 0
 
 	# 청동 검 사용
 	if Input.is_action_just_pressed("use_skill1") and has_bronze_sword:
 		use_bronze_sword()
+	# 노리개 스킬 W 사용
+	if Input.is_action_just_pressed("use_skill_w") and has_fan_pendant:
+		use_skill_w()
 	# 중력
 	if not is_on_floor():
 		if velocity.y < 0 and not Input.is_action_pressed("ui_accept"):
@@ -266,3 +278,13 @@ func use_bronze_sword() -> void:
 			enemy.apply_fear(fear_time)
 		else:
 			print("범위 내 적이 없습니다.")
+
+func unlock_fan_pendant() -> void:
+	has_fan_pendant = true
+	print("노리개 획득! 스킬 W 사용 가능")
+
+func use_skill_w() -> void:
+	if skill_w_cooldown > 0:
+		return
+	skill_w_cooldown = SKILL_W_COOLDOWN_TIME
+	skill_w_used.emit()

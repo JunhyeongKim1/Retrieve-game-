@@ -12,10 +12,15 @@ const COLOR_HIGH = Color(0.18, 0.78, 0.22)
 const COLOR_MID  = Color(0.92, 0.72, 0.08)
 const COLOR_LOW  = Color(0.88, 0.15, 0.15)
 
-# ── 스킬 슬롯 ────────────────────────────────────────────
+# ── 스킬 슬롯 (Q – 청동검) ───────────────────────────────
 var _skill_slot: Panel
 var _skill_arc: _SkillArc
 var _skill_cd_label: Label
+
+# ── 스킬 슬롯 (W – 노리개) ───────────────────────────────
+var _skill_slot_w: Panel
+var _skill_arc_w: _SkillArc
+var _skill_cd_label_w: Label
 
 # 쿨타임 부채꼴 오버레이 (12시에서 시계방향으로 채워지고, 경과한 만큼 다시 시계방향으로 걷힘)
 class _SkillArc extends Control:
@@ -170,6 +175,63 @@ func _build_skill_ui() -> void:
 	key_hint.add_theme_font_size_override("font_size", 9)
 	_skill_slot.add_child(key_hint)
 
+	# ── W 슬롯 (Q 슬롯 왼쪽, 8px 간격) ───────────────────
+	const GAP := 8
+	_skill_slot_w = Panel.new()
+	_skill_slot_w.anchor_left   = 0.5
+	_skill_slot_w.anchor_top    = 1.0
+	_skill_slot_w.anchor_right  = 0.5
+	_skill_slot_w.anchor_bottom = 1.0
+	_skill_slot_w.offset_left   = -(SLOT / 2 + GAP + SLOT)
+	_skill_slot_w.offset_top    = -(16 + SLOT)
+	_skill_slot_w.offset_right  = -(SLOT / 2 + GAP)
+	_skill_slot_w.offset_bottom = -16
+	_skill_slot_w.visible = false  # 노리개 획득 전까지 숨김
+
+	var slot_style_w = StyleBoxFlat.new()
+	slot_style_w.bg_color = Color(0.02, 0.07, 0.12, 0.88)
+	slot_style_w.corner_radius_top_left    = 5
+	slot_style_w.corner_radius_top_right   = 5
+	slot_style_w.corner_radius_bottom_left = 5
+	slot_style_w.corner_radius_bottom_right= 5
+	slot_style_w.border_width_left   = 2
+	slot_style_w.border_width_right  = 2
+	slot_style_w.border_width_top    = 2
+	slot_style_w.border_width_bottom = 2
+	slot_style_w.border_color = Color(0.20, 0.55, 0.90, 0.85)
+	_skill_slot_w.add_theme_stylebox_override("panel", slot_style_w)
+	add_child(_skill_slot_w)
+
+	var icon_w = TextureRect.new()
+	icon_w.position     = Vector2(PAD, PAD)
+	icon_w.size         = Vector2(SLOT - PAD * 2, SLOT - PAD * 2)
+	icon_w.texture      = load("res://asset/Item/fanpendant.png")
+	icon_w.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon_w.expand_mode  = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	_skill_slot_w.add_child(icon_w)
+
+	_skill_arc_w = _SkillArc.new()
+	_skill_arc_w.position = Vector2(PAD, PAD)
+	_skill_arc_w.size     = Vector2(SLOT - PAD * 2, SLOT - PAD * 2)
+	_skill_slot_w.add_child(_skill_arc_w)
+
+	_skill_cd_label_w = Label.new()
+	_skill_cd_label_w.position = Vector2(PAD, PAD)
+	_skill_cd_label_w.size     = Vector2(SLOT - PAD * 2, SLOT - PAD * 2)
+	_skill_cd_label_w.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_skill_cd_label_w.vertical_alignment   = VERTICAL_ALIGNMENT_CENTER
+	_skill_cd_label_w.add_theme_color_override("font_color", Color.WHITE)
+	_skill_cd_label_w.add_theme_font_size_override("font_size", 14)
+	_skill_cd_label_w.visible = false
+	_skill_slot_w.add_child(_skill_cd_label_w)
+
+	var key_hint_w = Label.new()
+	key_hint_w.text = "W"
+	key_hint_w.position = Vector2(SLOT - 14, SLOT - 15)
+	key_hint_w.add_theme_color_override("font_color", Color(0.9, 0.9, 0.9, 0.65))
+	key_hint_w.add_theme_font_size_override("font_size", 9)
+	_skill_slot_w.add_child(key_hint_w)
+
 
 func _process(_delta: float) -> void:
 	if player == null:
@@ -205,25 +267,43 @@ func _update_display(cur: int, max_hp: int) -> void:
 
 
 func _update_skill_ui() -> void:
+	# Q 슬롯 – 청동검
 	var has_sword: bool = player.has_bronze_sword
 	if _skill_slot.visible != has_sword:
 		_skill_slot.visible = has_sword
 
-	if not has_sword:
-		return
+	if has_sword:
+		var cd: float = player.sword_cooldown
+		var new_ratio: float = cd / float(player.SWORD_COOLDOWN_TIME)
 
-	var cd: float = player.sword_cooldown
-	var new_ratio: float = cd / float(player.SWORD_COOLDOWN_TIME)
+		if not is_equal_approx(_skill_arc.ratio, new_ratio):
+			_skill_arc.ratio = new_ratio
+			_skill_arc.queue_redraw()
 
-	if not is_equal_approx(_skill_arc.ratio, new_ratio):
-		_skill_arc.ratio = new_ratio
-		_skill_arc.queue_redraw()
+		var show_cd = cd > 0.05
+		if _skill_cd_label.visible != show_cd:
+			_skill_cd_label.visible = show_cd
+		if show_cd:
+			_skill_cd_label.text = str(ceili(cd))
 
-	var show_cd := cd > 0.05
-	if _skill_cd_label.visible != show_cd:
-		_skill_cd_label.visible = show_cd
-	if show_cd:
-		_skill_cd_label.text = str(ceili(cd))
+	# W 슬롯 – 노리개
+	var has_pendant: bool = player.has_fan_pendant
+	if _skill_slot_w.visible != has_pendant:
+		_skill_slot_w.visible = has_pendant
+
+	if has_pendant:
+		var cdw: float = player.skill_w_cooldown
+		var ratio_w: float = cdw / float(player.SKILL_W_COOLDOWN_TIME)
+
+		if not is_equal_approx(_skill_arc_w.ratio, ratio_w):
+			_skill_arc_w.ratio = ratio_w
+			_skill_arc_w.queue_redraw()
+
+		var show_cdw = cdw > 0.05
+		if _skill_cd_label_w.visible != show_cdw:
+			_skill_cd_label_w.visible = show_cdw
+		if show_cdw:
+			_skill_cd_label_w.text = str(ceili(cdw))
 
 
 func _build_game_over_ui() -> void:

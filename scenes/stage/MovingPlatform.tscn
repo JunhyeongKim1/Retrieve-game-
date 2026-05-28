@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cir54qvxh1sp2"]
+
+[ext_resource type="Script" uid="uid://c8r0f3l1rstm6" path="res://script/stage/moving_platform.gd" id="1_mvplat"]
+[ext_resource type="Texture2D" uid="uid://d1ald7lswpjei" path="res://asset/Tiles/Grass/Grass.png" id="2_xh553"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mvplat"]
+size = Vector2(212, 70)
+
+[node name="MovingPlatform" type="AnimatableBody2D" unique_id=2131642236]
+collision_mask = 0
+sync_to_physics = false
+script = ExtResource("1_mvplat")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1325840246]
+texture = ExtResource("2_xh553")
+region_enabled = true
+region_rect = Rect2(210, 211, 140, 69)
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1785078512]
+position = Vector2(104, 0)
+texture = ExtResource("2_xh553")
+region_enabled = true
+region_rect = Rect2(210, 141.25, 70, 69)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1776233651]
+position = Vector2(34, 0)
+shape = SubResource("RectangleShape2D_mvplat")

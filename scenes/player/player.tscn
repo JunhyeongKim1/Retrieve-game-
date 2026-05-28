@@ -110,8 +110,9 @@ animations = [{
 "speed": 6.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gmlin"]
-size = Vector2(62, 132)
+[sub_resource type="CapsuleShape2D" id="RectangleShape2D_gmlin"]
+radius = 31.0
+height = 132.0
 
 [node name="player" type="CharacterBody2D" unique_id=1722833208 groups=["player"]]
 position = Vector2(174, -388)

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cixogi6pei8lh"]
+
+[ext_resource type="PackedScene" uid="uid://c15febnwmukh6" path="res://scenes/Item/BaseItem.tscn" id="1_q40u5"]
+[ext_resource type="Script" uid="uid://dn1ooedjoyqtv" path="res://scenes/Item/fan_pendant.gd" id="2_q40u5"]
+[ext_resource type="Texture2D" uid="uid://cwbo0lrnid1o2" path="res://asset/Item/fanpendant.png" id="4_ojmj5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lv72p"]
+size = Vector2(40, 48)
+
+[node name="fan_pendant" unique_id=160682066 instance=ExtResource("1_q40u5")]
+position = Vector2(67, 38)
+script = ExtResource("2_q40u5")
+
+[node name="Sprite2D" parent="." index="0" unique_id=2113228108]
+position = Vector2(10, 16)
+scale = Vector2(0.3125, 0.42452833)
+texture = ExtResource("4_ojmj5")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=655090157]
+position = Vector2(12, 16)
+shape = SubResource("RectangleShape2D_lv72p")
+metadata/_edit_group_ = true

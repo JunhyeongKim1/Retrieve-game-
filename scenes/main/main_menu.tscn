@@ -1,9 +1,14 @@
 [gd_scene format=3 uid="uid://br3q7r6u8mwlf"]
 
 [ext_resource type="Script" uid="uid://ce68lnjwdhtbo" path="res://scenes/main/main_menu.gd" id="1_sd5it"]
+[ext_resource type="Texture2D" uid="uid://b3uada3u86s5q" path="res://asset/Background/hangso_museum.png" id="2_5vafy"]
 
-[node name="MainMenu" type="Node2D"]
+[node name="MainMenu" type="Node2D" unique_id=1047409539]
 script = ExtResource("1_sd5it")
 
-# ── 배경 이미지를 여기에 자식 노드로 추가하세요 ──
-# 예) TextureRect 또는 Sprite2D 를 에디터에서 추가
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=739843409]
+
+[node name="Background" type="Sprite2D" parent="CanvasLayer" unique_id=436465938]
+position = Vector2(640, 351.99997)
+scale = Vector2(1.5421807, 0.82914084)
+texture = ExtResource("2_5vafy")

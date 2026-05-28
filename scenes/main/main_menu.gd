@@ -44,7 +44,7 @@ const C_TXT_NOR    := Color(0.92, 0.88, 0.80)
 const C_TXT_HOV    := Color(1.00, 0.95, 0.75)
 const C_OVERLAY    := Color(0.04, 0.04, 0.08, 0.94)
 
-var _credits_layer: CanvasLayer
+@onready var _credits_layer: CanvasLayer = $CanvasLayer 
 var _btn_start: Button
 
 
