@@ -10,7 +10,7 @@ extends Node2D
 @onready var player = $player
 @onready var tilemap = $TileMap
 @onready var skill1_label = $HUD/skill1
-@onready var bronsesword = $BronseSword
+@onready var bronzesword = $BronzeSword
 @onready var portal = $Portal
 
 func _ready() -> void:
@@ -30,7 +30,7 @@ func _calc_map_bounds() -> void:
 	map_bottom = rect.end.y * tile_size.y + 400
 
 func _process(_delta: float) -> void:
-	var sword1_done = not is_instance_valid(bronsesword)
+	var sword1_done = not is_instance_valid(bronzesword)
 	if sword1_done:
 		skill1_label.visible = true
 		portal.visible = true

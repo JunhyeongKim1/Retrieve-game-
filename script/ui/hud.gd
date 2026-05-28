@@ -145,7 +145,7 @@ func _build_skill_ui() -> void:
 	var icon := TextureRect.new()
 	icon.position     = Vector2(PAD, PAD)
 	icon.size         = Vector2(SLOT - PAD * 2, SLOT - PAD * 2)
-	icon.texture      = load("res://asset/Item/BronseSword.png")
+	icon.texture      = load("res://asset/Item/BronzeSword.png")
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	icon.expand_mode  = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	_skill_slot.add_child(icon)

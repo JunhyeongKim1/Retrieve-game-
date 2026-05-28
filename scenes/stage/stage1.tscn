@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://o8odksnsfrpf" path="res://asset/Background/blue_desert.png" id="2_3un4f"]
 [ext_resource type="Texture2D" uid="uid://d1ald7lswpjei" path="res://asset/Tiles/Grass/Grass.png" id="2_ys2ni"]
 [ext_resource type="PackedScene" uid="uid://d1m8sl2khh2yg" path="res://scenes/Enemy/BlueSlime.tscn" id="5_fow0y"]
-[ext_resource type="PackedScene" uid="uid://cd35t16ymnqei" path="res://scenes/Item/Bronse_sword.tscn" id="6_quqnj"]
+[ext_resource type="PackedScene" uid="uid://cd35t16ymnqei" path="res://scenes/Item/Bronze_sword.tscn" id="6_quqnj"]
 [ext_resource type="PackedScene" uid="uid://b0gi8dbhghyqn" path="res://scenes/stage/portal.tscn" id="7_6mb36"]
 [ext_resource type="Script" uid="uid://dmyn37qyq272d" path="res://script/ui/hud.gd" id="9_hud"]
 
@@ -444,7 +444,7 @@ text = "Skill1 : Q"
 [node name="BlueSlime" parent="." unique_id=739817593 instance=ExtResource("5_fow0y")]
 position = Vector2(2155, 246)
 
-[node name="BronseSword" parent="." unique_id=160682066 instance=ExtResource("6_quqnj")]
+[node name="BronzeSword" parent="." unique_id=160682066 instance=ExtResource("6_quqnj")]
 position = Vector2(3024.0002, 463.99997)
 
 [node name="BlueSlime2" parent="." unique_id=1230677911 instance=ExtResource("5_fow0y")]

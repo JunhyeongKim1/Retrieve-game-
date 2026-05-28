@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxeiv3rv7nuxp"
-path="res://.godot/imported/Bronse_Sword_museum.webp-0385bba3af0506d28baaf0f9567a1d58.ctex"
+uid="uid://d1e1p6qpdqaqf"
+path="res://.godot/imported/BronzeSword.png-920aaa457a645b7aedf1c1ef9da60936.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/Item/Bronse_Sword_museum.webp"
-dest_files=["res://.godot/imported/Bronse_Sword_museum.webp-0385bba3af0506d28baaf0f9567a1d58.ctex"]
+source_file="res://asset/Item/BronzeSword.png"
+dest_files=["res://.godot/imported/BronzeSword.png-920aaa457a645b7aedf1c1ef9da60936.ctex"]
 
 [params]
 

@@ -18,6 +18,10 @@ var direction: float = 1.0
 var fear_timer: float = 0.0
 var player_ref: Node = null
 
+var _player_in_range: bool = false
+var _chase_linger_timer: float = 0.0
+const CHASE_LINGER_TIME: float = 2.0
+
 var _exclamation: Sprite2D = null
 
 @onready var anim = $AnimatedSprite2D
@@ -126,7 +130,7 @@ func _physics_process(delta: float) -> void:
 
 	match current_state:
 		State.PATROL: _process_patrol()
-		State.CHASE:  _process_chase()
+		State.CHASE:  _process_chase(delta)
 		State.FEAR:   _process_fear(delta)
 		State.DEAD:   pass
 
@@ -154,10 +158,19 @@ func _process_patrol() -> void:
 	# 감지 영역 방향 전환
 	detection_shape.position.x = abs(detection_shape.position.x) * direction
 
-func _process_chase() -> void:
+func _process_chase(delta: float) -> void:
 	if player_ref == null:
 		current_state = State.PATROL
 		return
+
+	if not _player_in_range:
+		_chase_linger_timer -= delta
+		if _chase_linger_timer <= 0.0:
+			player_ref = null
+			current_state = State.PATROL
+			return
+	else:
+		_chase_linger_timer = 0.0
 
 	var chase_dir = sign(player_ref.global_position.x - global_position.x)
 
@@ -173,6 +186,7 @@ func _process_chase() -> void:
 	direction = chase_dir
 	velocity.x = direction * chase_speed
 	anim.flip_h = direction > 0
+	detection_shape.position.x = abs(detection_shape.position.x) * direction
 
 func _process_fear(delta: float) -> void:
 	fear_timer -= delta
@@ -189,14 +203,15 @@ func _process_fear(delta: float) -> void:
 		flee_dir = -direction
 	velocity.x = flee_dir * speed * 1.5
 	anim.flip_h = velocity.x > 0
-	
-		# 벽/낭떠러지 감지 → 방향 전환
-	if is_on_wall():
-		direction *= -1.0
-	elif direction > 0 and not ray_right.is_colliding():
-		direction = -1.0
-	elif direction < 0 and not ray_left.is_colliding():
-		direction = 1.0
+
+	# 벽/낭떠러지 감지는 바닥 위일 때만 — 공중에서 검사하면 direction이 매 프레임 교번함
+	if is_on_floor():
+		if is_on_wall():
+			direction *= -1.0
+		elif direction > 0 and not ray_right.is_colliding():
+			direction = -1.0
+		elif direction < 0 and not ray_left.is_colliding():
+			direction = 1.0
 
 	# 감지 영역 방향 전환
 	detection_shape.position.x = abs(detection_shape.position.x) * direction
@@ -226,17 +241,17 @@ func _die() -> void:
 func _on_area_2d_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
 		player_ref = body
+		_player_in_range = true
+		_chase_linger_timer = 0.0
 		if current_state == State.PATROL:
 			current_state = State.CHASE
-			_show_exclamation()   # 플레이어 발견 시 ! 표시
+			_show_exclamation()
 
 
 func _on_area_2d_body_exited(body: Node) -> void:
 	if body.is_in_group("player"):
-		print("sed")
-		player_ref = null
-		if current_state == State.CHASE:
-			current_state = State.PATROL
+		_player_in_range = false
+		_chase_linger_timer = CHASE_LINGER_TIME
 
 func _update_animation() -> void:
 	pass
