@@ -415,7 +415,7 @@ script = ExtResource("9_hud")
 
 [node name="Portal" parent="." unique_id=999339759 instance=ExtResource("7_4wrrc")]
 position = Vector2(4616, 288)
-next_scene = "uid://br3q7r6u8mwlf"
+next_scene = "uid://cob87hbxu6oqw"
 text = "stage 3"
 
 [node name="BlueSlime" parent="." unique_id=739817593 instance=ExtResource("5_3c2ml")]

@@ -415,13 +415,13 @@ position = Vector2(-187, 19)
 script = ExtResource("5_7rhld")
 
 [node name="Portal" parent="." unique_id=999339759 instance=ExtResource("6_spg6w")]
-position = Vector2(4616, 288)
-next_scene = "uid://br3q7r6u8mwlf"
+position = Vector2(198, -33)
+next_scene = "uid://b4ending5sc1n"
 text = "stage 3"
 
 [node name="Gilt-bronzeCrown" parent="." unique_id=160682066 instance=ExtResource("7_0ix41")]
 position = Vector2(-57, 31)
 
 [node name="MovingPlatform" parent="." unique_id=1071212743 instance=ExtResource("8_p6jsb")]
-position = Vector2(87, 122)
+position = Vector2(238, 122)
 route_offset = Vector2(400, 0)

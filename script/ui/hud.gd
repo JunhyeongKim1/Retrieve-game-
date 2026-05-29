@@ -175,16 +175,16 @@ func _build_skill_ui() -> void:
 	key_hint.add_theme_font_size_override("font_size", 9)
 	_skill_slot.add_child(key_hint)
 
-	# ── W 슬롯 (Q 슬롯 왼쪽, 8px 간격) ───────────────────
+	# ── W 슬롯 (Q 슬롯 오른쪽, 8px 간격) ───────────────────
 	const GAP := 8
 	_skill_slot_w = Panel.new()
 	_skill_slot_w.anchor_left   = 0.5
 	_skill_slot_w.anchor_top    = 1.0
 	_skill_slot_w.anchor_right  = 0.5
 	_skill_slot_w.anchor_bottom = 1.0
-	_skill_slot_w.offset_left   = -(SLOT / 2 + GAP + SLOT)
+	_skill_slot_w.offset_left   = SLOT / 2 + GAP
 	_skill_slot_w.offset_top    = -(16 + SLOT)
-	_skill_slot_w.offset_right  = -(SLOT / 2 + GAP)
+	_skill_slot_w.offset_right  = SLOT / 2 + GAP + SLOT
 	_skill_slot_w.offset_bottom = -16
 	_skill_slot_w.visible = false  # 노리개 획득 전까지 숨김
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d1e1p6qpdqaqf"
-path="res://.godot/imported/BronzeSword.png-920aaa457a645b7aedf1c1ef9da60936.ctex"
+path="res://.godot/imported/BronzeSword.png-ef1eedd18fda1a713bd1102b861eb033.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://asset/Item/BronzeSword.png"
-dest_files=["res://.godot/imported/BronzeSword.png-920aaa457a645b7aedf1c1ef9da60936.ctex"]
+dest_files=["res://.godot/imported/BronzeSword.png-ef1eedd18fda1a713bd1102b861eb033.ctex"]
 
 [params]
 

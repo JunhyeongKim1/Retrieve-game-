@@ -43,7 +43,7 @@ const KNOCKBACK_FORCE = 400.0
 const INVINCIBLE_TIME = 1.7
 
 # 체력
-var hp: int = 30
+var hp: int = 50
 const MAX_HP: int = 30
 
 func _ready() -> void:

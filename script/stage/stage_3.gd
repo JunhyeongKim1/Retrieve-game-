@@ -10,7 +10,6 @@ extends Node2D
 @onready var portal = $Portal
 
 func _ready() -> void:
-	#_calc_map_bounds()
 	player.set_bounds(map_left, map_right, map_top, map_bottom)
 
 	# 수직 카메라 스크롤
