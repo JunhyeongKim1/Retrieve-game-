@@ -20,6 +20,7 @@ func _ready() -> void:
 		enemy.set_fall_death_y(map_bottom)
 	portal.visible = false
 	portal.monitoring = false
+	SoundManager.play_bgm(SoundManager.bgm_stage1)
 
 func _calc_map_bounds() -> void:
 	var rect = tilemap.get_used_rect()

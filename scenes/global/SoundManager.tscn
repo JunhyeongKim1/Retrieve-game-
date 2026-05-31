@@ -1,6 +1,24 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bdlfr0i8xd3ln"]
 
-[ext_resource type="Script" path="res://script/global/sound_manager.gd" id="1_sndmgr"]
+[ext_resource type="Script" uid="uid://cipvisvm2655q" path="res://script/global/sound_manager.gd" id="1_sndmgr"]
+[ext_resource type="AudioStream" uid="uid://dwfn7xn6ecubo" path="res://asset/sound/bgm_main.wav" id="2_6l4ju"]
+[ext_resource type="AudioStream" uid="uid://bg1ybe80ex2pr" path="res://asset/sound/bgm_stage1.wav" id="2_8gij5"]
+[ext_resource type="AudioStream" uid="uid://da5i4p1nmvu6a" path="res://asset/sound/bgm_stage2.wav" id="3_6l4ju"]
+[ext_resource type="AudioStream" uid="uid://cmx134bxtdkpx" path="res://asset/sound/bgm_stage3.wav" id="4_wk7b8"]
+[ext_resource type="AudioStream" uid="uid://111gp8vsjkjp" path="res://asset/sound/sfx_jump.wav" id="5_6unow"]
+[ext_resource type="AudioStream" uid="uid://pciclqi4cqno" path="res://asset/sound/sfx_hit.wav" id="6_pjgbr"]
+[ext_resource type="AudioStream" uid="uid://b8cgfrsaskwbl" path="res://asset/sound/sfx_item.mp3" id="7_ca8lc"]
+[ext_resource type="AudioStream" uid="uid://b40r0h4pyl6vj" path="res://asset/sound/sfx_portal.wav" id="8_3183m"]
+[ext_resource type="AudioStream" uid="uid://c6rig7vdque2s" path="res://asset/sound/sfx_gameover.wav" id="9_6qf66"]
 
-[node name="SoundManager" type="Node"]
+[node name="SoundManager" type="Node" unique_id=478735416]
 script = ExtResource("1_sndmgr")
+bgm_main_menu = ExtResource("2_6l4ju")
+bgm_stage1 = ExtResource("2_8gij5")
+bgm_stage2 = ExtResource("3_6l4ju")
+bgm_stage3 = ExtResource("4_wk7b8")
+sfx_jump = ExtResource("5_6unow")
+sfx_hit = ExtResource("6_pjgbr")
+sfx_item = ExtResource("7_ca8lc")
+sfx_portal = ExtResource("8_3183m")
+sfx_gameover = ExtResource("9_6qf66")

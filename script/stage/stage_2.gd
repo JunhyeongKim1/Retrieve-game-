@@ -13,6 +13,7 @@ extends Node2D
 func _ready() -> void:
 	_calc_map_bounds()
 	player.set_bounds(map_left, map_right, map_top, map_bottom)
+	SoundManager.play_bgm(SoundManager.bgm_stage2)
 	# 스테이지 2 전용: 수직 카메라 스크롤
 	var cam = player.get_node("Camera2D")
 	cam.limit_top = int(map_top)

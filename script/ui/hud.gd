@@ -203,11 +203,12 @@ func _build_skill_ui() -> void:
 	add_child(_skill_slot_w)
 
 	var icon_w = TextureRect.new()
-	icon_w.position     = Vector2(PAD, PAD)
-	icon_w.size         = Vector2(SLOT - PAD * 2, SLOT - PAD * 2)
-	icon_w.texture      = load("res://asset/Item/fanpendant.png")
-	icon_w.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	icon_w.expand_mode  = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	icon_w.position              = Vector2(PAD, PAD)
+	icon_w.size                  = Vector2(SLOT - PAD * 2, SLOT - PAD * 2)
+	icon_w.custom_minimum_size   = Vector2(SLOT - PAD * 2, SLOT - PAD * 2)
+	icon_w.texture               = load("res://asset/Item/fanpendant_museum.png")
+	icon_w.stretch_mode          = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon_w.expand_mode           = TextureRect.EXPAND_IGNORE_SIZE
 	_skill_slot_w.add_child(icon_w)
 
 	_skill_arc_w = _SkillArc.new()

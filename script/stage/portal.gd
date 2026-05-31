@@ -13,4 +13,5 @@ func _on_body_entered(body: Node) -> void:
 		monitoring = false
 		body.set_physics_process(false)
 		PlayerData.save_from_player(body)
+		SoundManager.play_sfx(SoundManager.sfx_portal)
 		SceneTransition.fade_to_scene(next_scene)

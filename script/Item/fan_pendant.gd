@@ -1,6 +1,8 @@
 extends BaseItem
 class_name FanPendant
 
+signal collected
+
 func _ready() -> void:
 	super._ready()
 	item_name = "호리병박 무늬로 장식한 노리개"
@@ -8,3 +10,4 @@ func _ready() -> void:
 
 func _apply_effect(player: Node) -> void:
 	player.unlock_fan_pendant()
+	collected.emit()

@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://cixogi6pei8lh"]
 
 [ext_resource type="PackedScene" uid="uid://c15febnwmukh6" path="res://scenes/Item/BaseItem.tscn" id="1_q40u5"]
-[ext_resource type="Script" uid="uid://dn1ooedjoyqtv" path="res://scenes/Item/fan_pendant.gd" id="2_q40u5"]
+[ext_resource type="Script" uid="uid://dn1ooedjoyqtv" path="res://script/Item/fan_pendant.gd" id="2_q40u5"]
+[ext_resource type="Texture2D" uid="uid://cokb4ttxrxorm" path="res://asset/Item/fanpendant_museum.png" id="3_hj1q3"]
 [ext_resource type="Texture2D" uid="uid://cwbo0lrnid1o2" path="res://asset/Item/fanpendant.png" id="4_ojmj5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lv72p"]
@@ -10,6 +11,7 @@ size = Vector2(40, 48)
 [node name="fan_pendant" unique_id=160682066 instance=ExtResource("1_q40u5")]
 position = Vector2(67, 38)
 script = ExtResource("2_q40u5")
+item_icon = ExtResource("3_hj1q3")
 
 [node name="Sprite2D" parent="." index="0" unique_id=2113228108]
 position = Vector2(10, 16)

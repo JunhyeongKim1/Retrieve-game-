@@ -111,11 +111,13 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		jump_buffer_timer = 0
 		coyote_timer = 0
+		SoundManager.play_sfx(SoundManager.sfx_jump)
 	# 더블점프 (FALL 상태 + 금동관 보유 + 더블점프 가용)
 	elif jump_buffer_timer > 0 and has_crown and double_jump_available and current_state == State.FALL:
 		velocity.y = JUMP_VELOCITY
 		jump_buffer_timer = 0
 		double_jump_available = false
+		SoundManager.play_sfx(SoundManager.sfx_jump)
 
 	# ↓ + 점프 → One-Way Platform 아래로 통과
 	_handle_drop_through()
@@ -218,6 +220,8 @@ func take_damage(damage, enemy_position: Vector2):
 	hp -= damage
 	hp = max(hp, 0)
 
+	SoundManager.play_sfx(SoundManager.sfx_hit)
+
 	if hp <= 0:
 		_die()
 		return
@@ -239,6 +243,8 @@ func _trigger_game_over() -> void:
 	is_invincible = false
 	knockback_velocity = Vector2.ZERO
 	set_physics_process(false)
+	SoundManager.stop_bgm()
+	SoundManager.play_sfx(SoundManager.sfx_gameover)
 
 	# dead 스프라이트는 가로형이라 세로형 애니메이션과 기준점이 다름
 	# Y 오프셋으로 눕는 스프라이트를 바닥에 맞춤 (값 조정 필요 시 DEAD_OFFSET_Y 수정)

@@ -1,20 +1,19 @@
-[gd_scene format=3 uid="uid://item_popup_001"]
+[gd_scene format=3 uid="uid://wcvva23mmt82"]
 
-[ext_resource type="Script" uid="uid://item_popup_script" path="res://script/ui/item_popup.gd" id="1_popup"]
+[ext_resource type="Script" uid="uid://blvrpdn4jpaks" path="res://script/ui/item_popup.gd" id="1_popup"]
 
 [node name="ItemPopup" type="CanvasLayer" unique_id=200000001]
 layer = 10
 script = ExtResource("1_popup")
 
 [node name="Overlay" type="Button" parent="." unique_id=200000002]
-layout_mode = 3
+modulate = Color(0, 0, 0, 0.55)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 flat = true
-modulate = Color(0, 0, 0, 0.55)
 
 [node name="ColorRect" type="ColorRect" parent="Overlay" unique_id=200000003]
 layout_mode = 1
@@ -23,11 +22,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.55)
 mouse_filter = 2
+color = Color(0, 0, 0, 0.55)
 
 [node name="Panel" type="PanelContainer" parent="." unique_id=200000004]
-layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -65,8 +63,8 @@ vertical_alignment = 1
 [node name="ContentMargin" type="MarginContainer" parent="Panel/VBox" unique_id=200000008]
 layout_mode = 2
 theme_override_constants/margin_left = 20
-theme_override_constants/margin_right = 20
 theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 14
 
 [node name="HBox" type="HBoxContainer" parent="Panel/VBox/ContentMargin" unique_id=200000009]
@@ -77,7 +75,6 @@ theme_override_constants/separation = 18
 custom_minimum_size = Vector2(130, 130)
 layout_mode = 2
 size_flags_vertical = 4
-expand_mode = 0
 stretch_mode = 5
 
 [node name="TextVBox" type="VBoxContainer" parent="Panel/VBox/ContentMargin/HBox" unique_id=200000011]

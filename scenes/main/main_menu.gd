@@ -8,15 +8,17 @@ const CREDITS: Array = [
 		"House In a Forest Loop  |  제작: [작성자]  |  출처: [링크]",
 	]],
 	["효과음", [
-		"[효과음 이름]  |  출처: [링크]",
+		"출처: https://freesound.org/",
 	]],
 	["아트 에셋", [
-		"[에셋 이름]  |  출처: [링크]",
-		"[에셋 이름]  |  출처: [링크]",
+		"슬라임  |  출처: https://kenney.nl/assets",
+		"표지판 |  출처: https://nyknck.itch.io/wood-set",
+		"플레이어 | 출처 : https://kenney.nl/assets, gemini 후처리",
+		"타일 | 출처 : https://kenney.nl/assets"
 	]],
 	["제작", [
-		"[이름]  |  [역할]",
-		"[이름]  |  [역할]",
+		"이름: 김준형 학번: 5702770",
+
 	]],
 ]
 # ══════════════════════════════════════════════════════════

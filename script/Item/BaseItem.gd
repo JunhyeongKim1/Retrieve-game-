@@ -40,6 +40,8 @@ func _on_collected(player: Node) -> void:
 	_show_popup()
 	# 2. 능력 적용 (자식에서 오버라이드)
 	_apply_effect(player)
+	# 3. 아이템 획득 SFX
+	SoundManager.play_sfx(SoundManager.sfx_item)
 	# 3. GameManager에 수집 기록
 	# GameManager.register_item(item_name)  ← 나중에 연결
 	# 4. 아이템 제거
