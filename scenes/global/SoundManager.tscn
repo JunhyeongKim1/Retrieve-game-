@@ -10,6 +10,8 @@
 [ext_resource type="AudioStream" uid="uid://b8cgfrsaskwbl" path="res://asset/sound/sfx_item.mp3" id="7_ca8lc"]
 [ext_resource type="AudioStream" uid="uid://b40r0h4pyl6vj" path="res://asset/sound/sfx_portal.wav" id="8_3183m"]
 [ext_resource type="AudioStream" uid="uid://c6rig7vdque2s" path="res://asset/sound/sfx_gameover.wav" id="9_6qf66"]
+[ext_resource type="AudioStream" uid="uid://b5yjxrj8km3yv" path="res://asset/sound/sfx_sword_skill.wav" id="11_6unow"]
+[ext_resource type="AudioStream" uid="uid://cwp1l0eyui0wq" path="res://asset/sound/sfx_pendant_skiil.wav" id="12_pjgbr"]
 
 [node name="SoundManager" type="Node" unique_id=478735416]
 script = ExtResource("1_sndmgr")
@@ -22,3 +24,5 @@ sfx_hit = ExtResource("6_pjgbr")
 sfx_item = ExtResource("7_ca8lc")
 sfx_portal = ExtResource("8_3183m")
 sfx_gameover = ExtResource("9_6qf66")
+sfx_skill1 = ExtResource("11_6unow")
+sfx_skill_w = ExtResource("12_pjgbr")

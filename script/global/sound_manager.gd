@@ -14,6 +14,8 @@ extends Node
 @export var sfx_item:     AudioStream
 @export var sfx_portal:   AudioStream
 @export var sfx_gameover: AudioStream
+@export var sfx_skill1:   AudioStream
+@export var sfx_skill_w:  AudioStream
 
 # ── SFX 풀 크기 ──────────────────────────────────────────	
 const SFX_POOL_SIZE := 8

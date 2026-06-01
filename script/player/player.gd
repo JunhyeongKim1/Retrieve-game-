@@ -276,6 +276,7 @@ func use_bronze_sword() -> void:
 		print("bronze_sword가 쿨타임 입니다")
 		return
 	sword_cooldown = SWORD_COOLDOWN_TIME
+	SoundManager.play_sfx(SoundManager.sfx_skill1)
 	# 범위 내 모든 적에게 공포 적용
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		var dist = global_position.distance_to(enemy.global_position)
@@ -293,4 +294,5 @@ func use_skill_w() -> void:
 	if skill_w_cooldown > 0:
 		return
 	skill_w_cooldown = SKILL_W_COOLDOWN_TIME
+	SoundManager.play_sfx(SoundManager.sfx_skill_w)
 	skill_w_used.emit()
