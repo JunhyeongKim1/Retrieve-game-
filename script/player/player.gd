@@ -43,7 +43,7 @@ const KNOCKBACK_FORCE = 400.0
 const INVINCIBLE_TIME = 1.7
 
 # 체력
-var hp: int = 50
+var hp: int = 30
 const MAX_HP: int = 30
 
 func _ready() -> void:
@@ -270,7 +270,7 @@ func unlock_crown() -> void:
 
 func use_bronze_sword() -> void:
 	if not has_bronze_sword:
-		print("bronze_swrod가 없습니다.")
+		print("bronze_sword가 없습니다.")
 		return
 	if sword_cooldown > 0:
 		print("bronze_sword가 쿨타임 입니다")

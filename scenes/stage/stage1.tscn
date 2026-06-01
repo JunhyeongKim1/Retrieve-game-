@@ -431,16 +431,6 @@ text = "Space : Jump"
 [node name="HUD" type="CanvasLayer" parent="." unique_id=113605802]
 script = ExtResource("9_hud")
 
-[node name="skill1" type="Label" parent="HUD" unique_id=1953771585]
-visible = false
-offset_left = 488.0
-offset_top = 112.0
-offset_right = 733.0
-offset_bottom = 223.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 40
-text = "Skill1 : Q"
-
 [node name="BlueSlime" parent="." unique_id=739817593 instance=ExtResource("5_fow0y")]
 position = Vector2(2155, 246)
 
