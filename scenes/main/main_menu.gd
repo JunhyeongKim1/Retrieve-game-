@@ -53,6 +53,7 @@ var _btn_start: Button
 func _ready() -> void:
 	_build_main_ui()
 	_build_credits_panel()
+	SoundManager.play_bgm(SoundManager.bgm_main_menu)
 
 
 # ══════════════════════════════════════════════════════════
