@@ -43,8 +43,8 @@ const KNOCKBACK_FORCE = 400.0
 const INVINCIBLE_TIME = 1.7
 
 # 체력
-var hp: int = 30
-const MAX_HP: int = 30
+var hp: int = 50
+const MAX_HP: int = 50
 
 func _ready() -> void:
 	var shape = collision.shape as CapsuleShape2D
@@ -277,6 +277,7 @@ func use_bronze_sword() -> void:
 		return
 	sword_cooldown = SWORD_COOLDOWN_TIME
 	SoundManager.play_sfx(SoundManager.sfx_skill1)
+	_play_sword_effect()
 	# 범위 내 모든 적에게 공포 적용
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		var dist = global_position.distance_to(enemy.global_position)
@@ -295,4 +296,55 @@ func use_skill_w() -> void:
 		return
 	skill_w_cooldown = SKILL_W_COOLDOWN_TIME
 	SoundManager.play_sfx(SoundManager.sfx_skill_w)
+	_play_pendant_effect()
 	skill_w_used.emit()
+
+# ── 스킬 연출 ────────────────────────────────────────────
+
+class _RingEffect extends Node2D:
+	var radius: float = 0.0:
+		set(v): radius = v; queue_redraw()
+	var alpha: float = 1.0:
+		set(v): alpha = v; queue_redraw()
+	var effect_color: Color = Color.WHITE
+	var thickness: float = 3.0
+
+	func _draw() -> void:
+		if alpha < 0.01:
+			return
+		var c := effect_color
+		c.a *= alpha
+		draw_arc(Vector2.ZERO, radius, 0.0, TAU, 64, c, thickness, true)
+
+func _spawn_ring(pos: Vector2, max_r: float, color: Color, duration: float, thick: float = 3.0) -> void:
+	var ring := _RingEffect.new()
+	ring.effect_color = color
+	ring.thickness = thick
+	get_parent().add_child(ring)
+	ring.global_position = pos
+	var tw := ring.create_tween()
+	tw.tween_property(ring, "radius", max_r, duration).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tw.parallel().tween_property(ring, "alpha", 0.0, duration).set_ease(Tween.EASE_IN)
+	tw.tween_callback(ring.queue_free)
+
+func _play_sword_effect() -> void:
+	# 스프라이트 황금빛 번쩍임
+	var tw := create_tween()
+	tw.tween_property(anim, "modulate", Color(1.4, 0.9, 0.4), 0.07)
+	tw.tween_property(anim, "modulate", Color.WHITE, 0.25)
+	# 공포 범위(200px) 충격파 링 2개
+	_spawn_ring(global_position, 200.0, Color(0.55, 0.35, 0.10, 0.9), 0.40, 4.0)
+	_spawn_ring(global_position, 200.0, Color(0.40, 0.25, 0.08, 0.5), 0.55, 2.0)
+
+func _play_pendant_effect() -> void:
+	# 스프라이트 하늘빛 번쩍임
+	var tw := create_tween()
+	tw.tween_property(anim, "modulate", Color(0.4, 1.3, 2.0), 0.07)
+	tw.tween_property(anim, "modulate", Color.WHITE, 0.28)
+	# 파문 링 3개 (시간차)
+	for i in 3:
+		var delay := i * 0.13
+		get_tree().create_timer(delay).timeout.connect(
+			func() -> void: _spawn_ring(global_position, 130.0, Color(0.25, 0.75, 1.0, 0.75), 0.48, 2.5),
+			CONNECT_ONE_SHOT
+		)

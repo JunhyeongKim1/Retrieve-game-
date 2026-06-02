@@ -7,8 +7,8 @@ var has_crown: bool = false
 var has_fan_pendant: bool = false
 var skill_w_cooldown: float = 0.0
 
-var hp: int = 30
-var max_hp: int = 30
+var hp: int = 50
+var max_hp: int = 50
 
 # ── 저장 / 불러오기 ─────────────────────────────────────
 func save_from_player(player: Node) -> void:
@@ -33,4 +33,4 @@ func reset() -> void:
 	has_crown        = false
 	has_fan_pendant  = false
 	skill_w_cooldown = 0.0
-	hp               = 30
+	hp               = 50

@@ -81,8 +81,8 @@ func _build_ui() -> void:
 	hp_bar = ProgressBar.new()
 	hp_bar.position = Vector2(12, 24)
 	hp_bar.size = Vector2(172, 20)
-	hp_bar.max_value = 30
-	hp_bar.value = 30
+	hp_bar.max_value = 50
+	hp_bar.value = 50
 	hp_bar.show_percentage = false
 
 	var fill_style = StyleBoxFlat.new()
@@ -104,7 +104,7 @@ func _build_ui() -> void:
 	panel.add_child(hp_bar)
 
 	hp_label = Label.new()
-	hp_label.text = "30 / 30"
+	hp_label.text = "50 / 50"
 	hp_label.position = Vector2(190, 23)
 	hp_label.add_theme_color_override("font_color", Color.WHITE)
 	hp_label.add_theme_font_size_override("font_size", 13)
